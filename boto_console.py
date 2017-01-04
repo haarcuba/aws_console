@@ -12,9 +12,13 @@ import argparse
 def say( message ):
     sys.stderr.write( '{0}\n'.format( message ) )
 
+def western( region ):
+    return region.startswith( 'us' ) or region.startswith( 'eu' ) or region.startswith( 'ca' )
+
 REGIONS = [ 'us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ca-central-1', 'eu-west-1', 'eu-central-1', 'eu-west-2', 'ap-northeast-1', 'ap-northeast-2', 'ap-southeast-1', 'ap-southeast-2', 'ap-south-1', 'sa-east-1', ]
+WESTERN = [ region for region in REGIONS if western( region ) ]
 parser = argparse.ArgumentParser()
-parser.add_argument( 'region', choices = REGIONS )
+parser.add_argument( 'region', choices = WESTERN )
 parser.add_argument( 'profile' )
 arguments = parser.parse_args()
 

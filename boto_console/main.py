@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import IPython
 import sys
 import time
@@ -18,8 +17,8 @@ def western( region ):
 REGIONS = [ 'us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ca-central-1', 'eu-west-1', 'eu-central-1', 'eu-west-2', 'ap-northeast-1', 'ap-northeast-2', 'ap-southeast-1', 'ap-southeast-2', 'ap-south-1', 'sa-east-1', ]
 WESTERN = [ region for region in REGIONS if western( region ) ]
 parser = argparse.ArgumentParser()
-parser.add_argument( 'region', choices = WESTERN )
-parser.add_argument( 'profile' )
+parser.add_argument( 'region', choices = REGIONS )
+parser.add_argument( '--profile', default = 'default' )
 arguments = parser.parse_args()
 
 logging.basicConfig( level = logging.WARNING, format = '%(asctime)s %(levelname)s: %(message)s' )
@@ -58,7 +57,7 @@ def pollState( thing ):
         time.sleep(1)
         thing.reload()
         print(".", end='', flush=True)
-        
+
     say( 'current state is {0}'.format( state ) )
     return thing.state
 
@@ -73,4 +72,14 @@ def stop( instance ):
 def ping(instance):
     os.system('ping {0}'.format(instance.public_dns_name))
 
-IPython.embed()
+def main():
+    IPython.embed( banner1 = BANNER )
+
+BANNER =\
+"""
+***********************************************
+*                                             *
+*       Welcome to the BOTO console           *
+*                                             *
+***********************************************
+"""

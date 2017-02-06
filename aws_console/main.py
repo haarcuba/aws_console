@@ -1,4 +1,5 @@
 import IPython
+import IPython.terminal.embed
 import sys
 import time
 import os
@@ -7,6 +8,7 @@ import subprocess
 import logging
 import re
 import argparse
+import aws_console.embed
 
 def say( message ):
     sys.stderr.write( '{0}\n'.format( message ) )
@@ -73,13 +75,18 @@ def ping(instance):
     os.system('ping {0}'.format(instance.public_dns_name))
 
 def main():
-    IPython.embed( banner1 = BANNER )
+    ipshell = IPython.terminal.embed.InteractiveShellEmbed(
+        config=aws_console.embed.config,
+        banner1 = BANNER,
+        exit_msg = "Bye bye, I hope you didn't destroy everything.")
+    ipshell()
+
 
 BANNER =\
 """
 ***********************************************
 *                                             *
-*       Welcome to the BOTO console           *
+*       Welcome to the AWS BOTO console       *
 *                                             *
 ***********************************************
 """

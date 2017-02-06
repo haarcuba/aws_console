@@ -4,7 +4,7 @@ README = 'a console for easily using AWS with boto3'
 
 requires = [ 'ipython', 'boto3' ]
 
-setup(name='boto-console',
+setup(name='aws-console',
       version='0.1.0',
       description=README,
       long_description=README,
@@ -17,7 +17,7 @@ setup(name='boto-console',
       packages=find_packages(),
       keywords='AWS, boto, amazon',
       entry_points = {
-          'console_scripts': 'boto-conolse = boto_console.main:main'
+          'console_scripts': 'aws-console = aws_console.main:main'
 
       },
       zip_safe=False,

@@ -24,24 +24,24 @@ parser.add_argument( '--profile', default = 'default' )
 arguments = parser.parse_args()
 
 logging.basicConfig( level = logging.WARNING, format = '%(asctime)s %(levelname)s: %(message)s' )
-session = boto3.Session(profile_name=arguments.profile, region_name=arguments.region)
-ec2 = session.resource('ec2')
+session  =  boto3.Session( profile_name = arguments.profile, region_name = arguments.region )
+ec2 = session.resource( 'ec2' )
 
-def by_tag_values(pattern):
-    pattern = re.compile(pattern)
+def by_tag_values( pattern ):
+    pattern = re.compile( pattern )
     result = []
     for machine in ec2.instances.all():
         if not machine.tags:
             continue
         for tag in machine.tags:
-            match = pattern.search(tag['Value'])
+            match = pattern.search( tag['Value'] )
             if match is not None:
-                result.append(machine)
+                result.append( machine )
 
     return result
 
 
-def ssh(user, instance, keyfile=None):
+def ssh( user, instance, keyfile=None ):
     BASIC = ['ssh', '-l', user, '-X']
     if keyfile:
         KEY = ['-i', keyfile]
@@ -71,10 +71,11 @@ def stop( instance ):
     instance.stop()
     instance.wait_until_stopped()
 
-def ping(instance):
+def ping( instance ):
     os.system('ping {0}'.format(instance.public_dns_name))
 
 def main():
+    aws_console.embed.CustomPrompt.setProfile( arguments.profile )
     ipshell = IPython.terminal.embed.InteractiveShellEmbed(
         config=aws_console.embed.config,
         banner1 = BANNER,

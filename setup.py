@@ -5,7 +5,7 @@ README = 'a console for easily using AWS with boto3'
 requires = [ 'ipython >= 5.2.2', 'boto3' ]
 
 setup(name='aws-console',
-      version='0.1.2',
+      version='0.1.3',
       description=README,
       long_description=README,
       url='https://github.com/haarcuba/aws_console',

@@ -1,5 +1,4 @@
-import IPython
-import IPython.terminal.embed
+import myconsole
 import sys
 import time
 import os
@@ -8,7 +7,6 @@ import subprocess
 import logging
 import re
 import argparse
-import aws_console.embed
 
 def say( message ):
     sys.stderr.write( '{0}\n'.format( message ) )
@@ -75,13 +73,8 @@ def ping( instance ):
     os.system('ping {0}'.format(instance.public_dns_name))
 
 def main():
-    aws_console.embed.CustomPrompt.setProfile( arguments.profile )
-    ipshell = IPython.terminal.embed.InteractiveShellEmbed(
-        config=aws_console.embed.config,
-        banner1 = BANNER,
-        exit_msg = "Bye bye, I hope you didn't destroy everything.")
-    ipshell()
-
+    console = myconsole.create( BANNER, 'aws[{}]'.format( arguments.profile ), 'out', exitMessage = "Bye bye, I hope you didn't destroy everything." )
+    console()
 
 BANNER =\
 """

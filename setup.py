@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 README = 'a console for easily using AWS with boto3'
 
-requires = [ 'ipython >= 5.2.2', 'boto3' ]
+requires = [ 'ipython >= 5.2.2', 'boto3', 'myconsole' ]
 
 setup(name='aws-console',
       version='0.1.3',

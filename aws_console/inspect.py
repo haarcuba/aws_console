@@ -9,8 +9,6 @@ import myconsole
 import subprocess
 
 def _run( command ):
-    if len( command ) == 0:
-        return {}
     command = [ 'aws' ] + command
     process = subprocess.run( command, stdout = subprocess.PIPE, text = True )
     return json.loads( process.stdout )
@@ -21,7 +19,13 @@ def aws( commandString ):
 def main():
     parser = argparse.ArgumentParser(description = __doc__)
     arguments = parser.parse_known_args()
-    results = _run( arguments[ -1 ] )
+    command = arguments[ -1 ]
+    if len( command ) == 0:
+        return
+    if command[ -1 ] == 'help':
+        subprocess.run( [ 'aws' ] + command )
+        return
+    r = _run( command )
     console = myconsole.create( BANNER, 'aws-inspect', 'out', exitMessage = "Bye bye, I hope you didn't destroy everything." )
     console()
 

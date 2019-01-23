@@ -17,7 +17,8 @@ setup(name='aws-console',
       packages=find_packages(),
       keywords='AWS, boto, amazon',
       entry_points = {
-          'console_scripts': 'aws-console = aws_console.main:main'
+          'console_scripts': [ 'aws-console = aws_console.main:main',
+                               'aws-inspect = aws_console.inspect:main' ]
 
       },
       zip_safe=False,
